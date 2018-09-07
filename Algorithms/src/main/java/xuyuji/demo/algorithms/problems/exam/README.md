@@ -20,10 +20,7 @@
 
 第一行输入一个n数表示题目的数量。
 
-接下来n行，每行四个数$pi，ai，qi，bi(1\leq n\leq 100,1\leq pi\leq qi\leq 120,0\leq ai\leq bi\leq 1000)$
-
-
-
+接下来n行，每行四个数pi，ai，qi，bi(1<= n<=100,1<=pi<=qi<=120,0<=ai<=bi<=1000)
 
 ### 输出
 
@@ -50,8 +47,9 @@
 使用动态规划解答。
 
 准备一个题数n\times时间t(1-120分钟)的矩阵，先处理第一题，填充每个时间段可得最高分。
+
 $$
-S_{n=1,t}=
+S_{(n=1,t)}=
   \begin{cases}
   	0  & t < p_{1} \\
   	a_{1} & p_{1}\leq t < q_{1}\\
@@ -70,9 +68,4 @@ S_{(n,t)}=\begin{cases}
 	max(S_{(n-1,t)},S_{(n-1,t-p_{n})}+a_{n},S_{(n-1,t-q_{n})}+b_{n}) & q_{n}\leq t
 \end{cases}
 $$
-
-
-
-
-
 
