@@ -46,10 +46,4 @@ public class Exam {
 		//矩阵右下角顶点即是可得最高分
 		return dp[questions.length - 1][TOTAL_TIME];
 	}
-
-	public static void main(String[] args) {
-		System.out.println(new Exam()
-				.exec(new int[][] { { 20, 20, 100, 60 }, { 50, 30, 80, 55 }, { 100, 60, 110, 88 }, { 5, 3, 10, 6 } }));
-		System.out.println(new Exam().exec(new int[][] { { 50, 50, 100, 60 }, { 50, 30, 80, 45 } }));
-	}
 }
