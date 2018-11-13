@@ -31,7 +31,7 @@ public class MebookEmailTask {
     @Value("${receiver}")
     private String receiver;
 
-    @Scheduled(cron = "0 5 10 * * ?")
+    @Scheduled(cron = "${task.spider.mebook.corn}")
     public void sendMail() throws Exception {
         String todayStr = DateFormatUtils.format(new Date(), "yyyy/MM/dd");
         LOG.info("开始抓取小书屋[{}]更新", todayStr);
