@@ -12,7 +12,7 @@
 
    mvn archetype:generate -DinteractiveMode=false -DarchetypeGroupId=org.openjdk.jmh -DarchetypeArtifactId=jmh-java-benchmark-archetype -DgroupId=org.xuyuji -DartifactId=LockBenchmark -Dversion=1.0
 
-2. 添加要测试的代码
+2. 添加要测试的代码(出自咖啡拿铁的文章)
 
    ```
    @BenchmarkMode({ Mode.SampleTime })
