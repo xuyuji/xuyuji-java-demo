@@ -74,11 +74,13 @@
 
 ## 目录
 
-logback打印日志性能验证
+[logback打印日志性能验证](./LockBenchmark)
 
 [加锁与CAS性能验证](./LockBenchmark)
 
-随机函数性能验证
+[随机函数性能验证](./RandomBenchmark)
+
+[String与StringBuilder字符拼接性能验证](./StringBuilderBenchmark)
 
 
 
