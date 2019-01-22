@@ -16,7 +16,7 @@
 
 2. 添加要测试的代码(出自咖啡拿铁的文章)
 
-   ```
+   ```java
    @BenchmarkMode({ Mode.SampleTime })
    @OutputTimeUnit(TimeUnit.MILLISECONDS)
    @Warmup(iterations = 3, time = 5, timeUnit = TimeUnit.MILLISECONDS)
@@ -55,6 +55,21 @@
    java -jar target/benchmarks.jar
    ```
 
+   或者
+
+   ```java
+   public static void main(String[] args) throws RunnerException {
+   	Options options = new OptionsBuilder()
+               .include(LockBenchmark.class.getSimpleName())
+               .mode(Mode.SampleTime)
+               .output("Benchmark.log")
+               .build();
+       new Runner(options).run();
+   }
+   ```
+
+   这种比较方便，可以在IDE里执行，但是class上的注解无效了。
+
 
 
 ## 目录
@@ -76,3 +91,5 @@ logback打印日志性能验证
 [使用JMH进行微基准测试：不要猜，要测试！](http://www.importnew.com/18084.html)
 
 [JMH简介](http://www.importnew.com/12548.html)
+
+[JMH 性能测试框架](http://blog.dyngr.com/blog/2016/10/29/introduction-of-jmh/)
