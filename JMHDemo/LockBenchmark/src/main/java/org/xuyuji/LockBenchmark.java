@@ -46,15 +46,11 @@ import org.openjdk.jmh.annotations.Scope;
 import org.openjdk.jmh.annotations.State;
 import org.openjdk.jmh.annotations.Threads;
 import org.openjdk.jmh.annotations.Warmup;
-import org.openjdk.jmh.runner.Runner;
-import org.openjdk.jmh.runner.RunnerException;
-import org.openjdk.jmh.runner.options.Options;
-import org.openjdk.jmh.runner.options.OptionsBuilder;
 
-@BenchmarkMode({Mode.SampleTime})
+@BenchmarkMode({ Mode.SampleTime })
 @OutputTimeUnit(TimeUnit.MILLISECONDS)
-@Warmup(iterations=3, time = 5, timeUnit = TimeUnit.MILLISECONDS)
-@Measurement(iterations=1,batchSize = 100000000)
+@Warmup(iterations = 3, time = 5, timeUnit = TimeUnit.MILLISECONDS)
+@Measurement(iterations = 1, batchSize = 100000000)
 @Threads(2)
 @Fork(1)
 @State(Scope.Benchmark)
@@ -79,14 +75,5 @@ public class LockBenchmark {
 	@Benchmark
 	public void measureNoLock() {
 		i++;
-	}
-
-	public static void main(String[] args) throws RunnerException {
-		Options options = new OptionsBuilder()
-	            .include(LockBenchmark.class.getSimpleName())
-	            .mode(Mode.SampleTime)
-	            .output("Benchmark.log")
-	            .build();
-	    new Runner(options).run();
 	}
 }
