@@ -76,7 +76,7 @@
 
 logback打印日志性能验证
 
-[加锁与CAS性能验证](/LockBenchmark)
+[加锁与CAS性能验证](./LockBenchmark)
 
 随机函数性能验证
 
