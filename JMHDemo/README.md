@@ -76,7 +76,7 @@
 
 logback打印日志性能验证
 
-加锁与CAS性能验证
+[加锁与CAS性能验证](/LockBenchmark)
 
 随机函数性能验证
 
@@ -93,3 +93,5 @@ logback打印日志性能验证
 [JMH简介](http://www.importnew.com/12548.html)
 
 [JMH 性能测试框架](http://blog.dyngr.com/blog/2016/10/29/introduction-of-jmh/)
+
+[Java微基准测试框架JMH](https://www.xncoding.com/2018/01/07/java/jmh.html)
