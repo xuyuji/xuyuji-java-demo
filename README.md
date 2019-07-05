@@ -1,7 +1,7 @@
 # 我的Java示例库
 
-- [算法工具库](https://github.com/xuyuji/xuyuji-java-demo/tree/master/Algorithms)
-- [小书屋爬虫](https://github.com/xuyuji/xuyuji-java-demo/tree/master/MySpider)
-- [JMH示例库](https://github.com/xuyuji/xuyuji-java-demo/tree/master/JMHDemo)
+- [算法工具库](Algorithms)
+- [小书屋爬虫](MySpider)
+- [JMH示例库](JMHDemo)
 - [spring-rabbit脚手架](spring-rabbit-scaffold)
 
