@@ -319,3 +319,8 @@ public abstract class AbstractMessageListenerContainer extends RabbitAccessor
 在doInvokeListener方法中针对listener.onMessage捕获了所有的Exception，并将这些Exception传入wrapToListenerExecutionFailedExceptionIfNeeded方法中，封装进ListenerExecutionFailedException。之前的说法也得到了证实。
 
 顺便这里还可以看到spring-rabbit支持两种listener，MessageListener和ChannelAwareMessageListener，然后找到了调用我们自己实现的listener的地方------listener.onMessage。
+
+### 参考资料
+
+[RabbitMQ：消息发送确认 与 消息接收确认（ACK）](https://www.jianshu.com/p/2c5eebfd0e95)
+
