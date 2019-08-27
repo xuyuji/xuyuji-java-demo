@@ -15,12 +15,16 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
 public class MebookSpider {
 
     private final Logger LOG = LoggerFactory.getLogger(getClass());
+    
+    @Value("${mebook.url}")
+    private String mebookUrl;
     
     public String fetch() {
         LOG.info("开始抓取Mebook");
@@ -46,7 +50,7 @@ public class MebookSpider {
         StringBuilder sb = new StringBuilder();
 
         try {
-            Document indexDoc = getDoc("http://mebook.cc/");
+            Document indexDoc = getDoc(mebookUrl);
             Pattern p = Pattern.compile("\\d{4}.\\d{2}.\\d{2}");
             for (Element e : indexDoc.select("#primary .list li")) {
                 Matcher m = p.matcher(e.select(".info").text());
