@@ -4,4 +4,5 @@
 - [小书屋爬虫](MySpider)
 - [JMH示例库](JMHDemo)
 - [spring-rabbit脚手架](spring-rabbit-scaffold)
+- [spring-aop脚手架](spring-aop-scaffold)
 
