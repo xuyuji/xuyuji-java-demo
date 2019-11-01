@@ -2,6 +2,8 @@ package xuyuji.demo.algorithms.credit;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  ************************************************************
@@ -14,37 +16,157 @@ import java.math.RoundingMode;
  */
 public class MCEI {
 
-    public void calc(BigDecimal prin, BigDecimal rate, int term) {
-        BigDecimal rateAddOne = rate.add(BigDecimal.ONE);
+    private BigDecimal stagingRate; // 每期利率
+
+    private int term; // 期数
+
+    private List<Schedule> scheduleList; // 还款计划
+
+    private BigDecimal perPrincipalAndInterest; // 每期还本付息金额
+
+    private BigDecimal totalInterest; // 总利息金额
+
+    private BigDecimal totalPrincipalAndInterest; // 总还本付息金额
+
+    public MCEI(BigDecimal stagingRate, int term) {
+        this.stagingRate = stagingRate;
+        this.term = term;
+        init();
+    }
+
+    private void init() {
+        this.scheduleList = new ArrayList<>();
+        this.perPrincipalAndInterest = BigDecimal.ZERO;
+        this.totalInterest = BigDecimal.ZERO;
+        this.totalPrincipalAndInterest = BigDecimal.ZERO;
+    }
+
+    /**
+     * 功能描述：计算等额本息
+     * 
+     * @param totalPrincipal void
+     */
+    public MCEI calc(BigDecimal totalPrincipal) {
+        init();
+        BigDecimal rateAddOne = stagingRate.add(BigDecimal.ONE);
         BigDecimal rateAddOnePowN = rateAddOne.pow(term);
+        BigDecimal rateAddOnePowNSubOne = rateAddOnePowN.subtract(BigDecimal.ONE);
 
-        BigDecimal perAllAmt = prin.multiply(rate).multiply(rateAddOnePowN).divide(rateAddOnePowN.subtract(BigDecimal.ONE), 2, RoundingMode.HALF_UP);
-        System.out.println("每月需还款：" + perAllAmt);
+        perPrincipalAndInterest = totalPrincipal.multiply(stagingRate).multiply(rateAddOnePowN)
+                .divide(rateAddOnePowNSubOne, 2, RoundingMode.HALF_UP);
 
-        BigDecimal interest = BigDecimal.ZERO;
-        BigDecimal lastPrin = prin;
-        int i = 0;
-        for (; i < term - 1; i++) {
-            BigDecimal perPrin = prin.multiply(rate).multiply(rateAddOne.pow(i)).divide(rateAddOnePowN.subtract(BigDecimal.ONE), 2,
-                RoundingMode.HALF_UP);
-            lastPrin = lastPrin.subtract(perPrin);
-            BigDecimal perInterest = perAllAmt.subtract(perPrin);
-            interest = interest.add(perInterest);
-            System.out.println("第" + (i + 1) + "期本金：" + perPrin + " 利息：" + perInterest);
+        BigDecimal residualPrincipal = totalPrincipal;
+        for (int i = 1; i < term; i++) {
+            BigDecimal currentPrincipal =
+                    totalPrincipal.multiply(stagingRate).multiply(rateAddOne.pow(i - 1))
+                            .divide(rateAddOnePowNSubOne, 2, RoundingMode.HALF_UP);
+            BigDecimal currentInterest = perPrincipalAndInterest.subtract(currentPrincipal);
+            scheduleList.add(new Schedule(i, currentPrincipal, currentInterest));
+            residualPrincipal = residualPrincipal.subtract(currentPrincipal);
+            totalInterest = totalInterest.add(currentInterest);
         }
-        BigDecimal lastInterest = perAllAmt.subtract(lastPrin);
-        interest = interest.add(lastInterest);
-        System.out.println("第" + (i + 1) + "期本金：" + lastPrin + " 利息：" + (perAllAmt.subtract(lastPrin)));
-        System.out.println("总本金：" + prin + ",总利息：" + interest);
-        System.out.println("总共还本付息：" + prin.add(interest));
-        System.out.println("总共还本付息：" + perAllAmt.multiply(BigDecimal.valueOf(term)));
+        BigDecimal lastInterest = perPrincipalAndInterest.subtract(residualPrincipal);
+        scheduleList.add(new Schedule(term, residualPrincipal, lastInterest));
+        totalInterest = totalInterest.add(lastInterest);
+        totalPrincipalAndInterest = totalPrincipal.add(totalInterest);
+        return this;
+    }
+
+    /**
+     * 功能描述：获取还款计划
+     * 
+     * @return List<Schedule>
+     */
+    public List<Schedule> getScheduleList() {
+        return scheduleList;
+    }
+
+    /**
+     * 功能描述：获取每期还本付息金额
+     * 
+     * @return BigDecimal
+     */
+    public BigDecimal getPerPrincipalAndInterest() {
+        return perPrincipalAndInterest;
+    }
+
+    /**
+     * 功能描述：获取总利息金额
+     * 
+     * @return BigDecimal
+     */
+    public BigDecimal getTotalInterest() {
+        return totalInterest;
+    }
+
+    /**
+     * 功能描述：获取总本息金额
+     * 
+     * @return BigDecimal
+     */
+    public BigDecimal getTotalPrincipalAndInterest() {
+        return totalPrincipalAndInterest;
+    }
+
+    class Schedule {
+        private int currentTerm;
+        private BigDecimal principal;
+        private BigDecimal interest;
+
+        public Schedule(int currentTerm, BigDecimal principal, BigDecimal interest) {
+            this.currentTerm = currentTerm;
+            this.principal = principal;
+            this.interest = interest;
+        }
+
+        public BigDecimal getPrincipal() {
+            return principal;
+        }
+
+        public void setPrincipal(BigDecimal principal) {
+            this.principal = principal;
+        }
+
+        public BigDecimal getInterest() {
+            return interest;
+        }
+
+        public void setInterest(BigDecimal interest) {
+            this.interest = interest;
+        }
+
+        public int getCurrentTerm() {
+            return currentTerm;
+        }
+
+        public void setCurrentTerm(int currentTerm) {
+            this.currentTerm = currentTerm;
+        }
+
+        @Override
+        public String toString() {
+            StringBuilder builder = new StringBuilder();
+            builder.append("Schedule [currentTerm=");
+            builder.append(currentTerm);
+            builder.append(", principal=");
+            builder.append(principal);
+            builder.append(", interest=");
+            builder.append(interest);
+            builder.append("]");
+            return builder.toString();
+        }
     }
 
     public static void main(String[] args) {
-        new MCEI().calc(BigDecimal.valueOf(10000), BigDecimal.valueOf(0.36).setScale(8).divide(BigDecimal.valueOf(12), RoundingMode.HALF_UP), 12);
-        System.out.println("######");
-        new MCEI().calc(BigDecimal.valueOf(100000), BigDecimal.valueOf(0.36).setScale(8).divide(BigDecimal.valueOf(12), RoundingMode.HALF_UP), 6);
-        System.out.println("######");
-        new MCEI().calc(BigDecimal.valueOf(50000), BigDecimal.valueOf(0.001).multiply(BigDecimal.valueOf(30)).setScale(8), 12);
+        MCEI calc = new MCEI(BigDecimal.valueOf(0.03), 12);
+        calc.calc(BigDecimal.valueOf(10000));
+
+        List<MCEI.Schedule> list = calc.getScheduleList();
+        for (MCEI.Schedule schedule : list) {
+            System.out.println(schedule);
+        }
+        System.out.println("每期应还金额:" + calc.getPerPrincipalAndInterest());
+        System.out.println("总利息金额:" + calc.getTotalInterest());
+        System.out.println("应还总金额:" + calc.getTotalPrincipalAndInterest());
     }
 }

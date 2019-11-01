@@ -26,19 +26,19 @@ matching the repayment of principal and interest
 
 ## 计算公式	
 
-P:贷款本金
+P(Principal):贷款本金
 
-R:每期利率
+R(Rate):每期利率
 
 N:还款期数
 
 n:当前期数[1,N]
 
-pi:每月还本付息金额
+pi(principal and interest):每月还本付息金额
 
-p:每月需偿还本金
+p(principal):每月需偿还本金principal
 
-i:每月需偿还利息(未还本金*R)
+i(interest):每月需偿还利息(未还本金*R)
 $$
 pi=P\times\cfrac{R\times(1+R)^N}{(1+R)^N-1}
 $$
