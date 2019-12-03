@@ -1,0 +1,36 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<artifactId>dubbo-spring-cloud-web</artifactId>
+	<packaging>pom</packaging>
+	
+	<parent>
+		<groupId>org.lakala.samples</groupId>
+		<artifactId>dubbo-spring-cloud-samples</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	
+	<modules>
+		<module>dubbo-spring-cloud-web-api</module>
+		<module>dubbo-spring-cloud-web-consumer</module>
+		<module>dubbo-spring-cloud-web-provider</module>
+	</modules>
+	
+	<properties>
+		<spring-cloud-openfeign.version>2.1.2.RELEASE</spring-cloud-openfeign.version>
+	</properties>
+	
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-openfeign-dependencies</artifactId>
+                <version>${spring-cloud-openfeign.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+		</dependencies>
+	</dependencyManagement>
+
+</project>

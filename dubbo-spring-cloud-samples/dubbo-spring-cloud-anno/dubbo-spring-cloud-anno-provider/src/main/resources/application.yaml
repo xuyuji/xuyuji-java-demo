@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: dubbo-spring-cloud-anno-provider
+  main:
+    allow-bean-definition-overriding: true
+  cloud:
+    nacos:
+      discovery:
+        enabled: true
+        register-enabled: true
+        server-addr: devops.fintech.lakala.com:80
+dubbo:
+  scan:
+    base-packages: org.lakala.samples.dubbo_spring_cloud_anno_provider.service
+  protocols:
+    dubbo:
+      name: dubbo
+      # 从20880开始自增
+      port: -1
+  registry:
+    # 采用spring cloud自动发现机制
+    address: spring-cloud://localhost

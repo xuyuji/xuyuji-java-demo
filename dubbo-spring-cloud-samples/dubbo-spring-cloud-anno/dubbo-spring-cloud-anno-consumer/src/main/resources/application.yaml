@@ -1,0 +1,25 @@
+spring:
+  application:
+    name: dubbo-spring-cloud-anno-consumer
+  main:
+    allow-bean-definition-overriding: true
+  cloud:
+    nacos:
+      discovery:
+        enabled: true
+        register-enabled: true
+        server-addr: devops.fintech.lakala.com:80
+server:
+  port: 8088
+  
+dubbo:
+  registry:
+    # 采用spring cloud自动发现机制
+    address: spring-cloud://localhost
+  cloud:
+    # 订阅过的服务才能调用，多个用逗号分隔
+    subscribed-services: ${provider.application.name}
+    
+provider:
+  application:
+    name: dubbo-spring-cloud-anno-provider

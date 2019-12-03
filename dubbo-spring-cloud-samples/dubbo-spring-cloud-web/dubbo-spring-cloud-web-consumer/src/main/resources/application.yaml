@@ -1,0 +1,34 @@
+spring:
+  application:
+    name: dubbo-spring-cloud-web-consumer
+  main:
+    allow-bean-definition-overriding: true
+  cloud:
+    nacos:
+      discovery:
+        enabled: true
+        register-enabled: true
+        server-addr: devops.fintech.lakala.com:80
+    zookeeper:
+      enabled: false
+    consul:
+      enabled: false
+    sentinel:
+      transport:
+        dashboard: localhost:8888
+eureka:
+  client:
+    enabled: false
+feign:
+  sentinel:
+    enabled: true
+server:
+  port: 8080
+dubbo:
+  registry:
+    address: spring-cloud://localhost
+  cloud:
+    subscribed-services: ${provider.application.name}
+provider:
+  application:
+    name: dubbo-spring-cloud-web-provider
