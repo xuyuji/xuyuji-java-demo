@@ -19,7 +19,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<jsoup.version>1.10.3</jsoup.version>
+		<jsoup.version>1.14.2</jsoup.version>
 		<commons-lang3.version>3.6</commons-lang3.version>
 	</properties>
 
